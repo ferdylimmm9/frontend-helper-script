@@ -1,0 +1,330 @@
+{
+  "kafra/get-channels": {
+    "phone_number": "08123456789"
+  },
+  "kafra/send-otp": {
+    "phone_number": "string",
+    "channel": "string"
+  },
+  "kafra/verify-otp/{otp_id}": {
+    "phone_number": "string",
+    "code": "string"
+  },
+  "register": {},
+  "check-user": {},
+  "login": {},
+  "reset-password": {},
+  "homepage/products/{supplier}": {},
+  "homepage/products/detail/{id}": {},
+  "become-supplier": {
+    "name": "string",
+    "entity_name": "string",
+    "phone": "08123456789",
+    "description": "string"
+  },
+  "other-products": {},
+  "banners": {},
+  "catalogs": {},
+  "suppliers": {},
+  "members/balance-mutations": {},
+  "members/balance-withdrawals": {},
+  "members/contents": {},
+  "gifts": {},
+  "gift-exchanges": {},
+  "transactions": {},
+  "cart": {
+    "qty": 1
+  },
+  "payment-method": {},
+  "reseller-transactions": {
+    "carts": [],
+    "carts.*": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "city_froms": [],
+    "city_froms.*": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "providers": [],
+    "providers.*": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "subdistrict_to": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "pickup_date": "YYYY-MM-DD",
+    "pickup_time": "YYYY-MM-DD",
+    "is_installable": [],
+    "is_installable.*": true,
+    "postal_code": "string",
+    "address": "string",
+    "receiver_name": "string",
+    "phone_number": "08123456789"
+  },
+  "reseller-transaction": {
+    "carts": [],
+    "carts.*": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "city_froms": [],
+    "city_froms.*": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "providers": [],
+    "providers.*": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "subdistrict_to": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "pickup_date": "YYYY-MM-DD",
+    "pickup_time": "YYYY-MM-DD",
+    "is_installable": [],
+    "is_installable.*": true,
+    "postal_code": "string",
+    "address": "string",
+    "receiver_name": "string",
+    "phone_number": "08123456789"
+  },
+  "reseller-transaction/{id}": {},
+  "reseller-transaction/{id}/voucher": {
+    "payment_proof": "string",
+    "marketplace_waybill": "string"
+  },
+  "reseller-transaction/{id}/payment": {
+    "payment_proof": "string",
+    "marketplace_waybill": "string"
+  },
+  "reseller-transaction/{id}/confirm": {
+    "payment_proof": "string",
+    "marketplace_waybill": "string"
+  },
+  "reseller-transaction/{id}/cancel": {},
+  "reseller-transaction/{id}/update-proof": {
+    "waybill_proof": "string"
+  },
+  "reseller-transaction/{id}/recalculate": {},
+  "shipping/provinces": {},
+  "shipping/cities": {},
+  "shipping/subdistricts": {},
+  "shipping/count": {
+    "subdistrict_to": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "carts": [],
+    "carts.*": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "city_froms": [],
+    "city_froms.*": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "providers": [],
+    "providers.*": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "is_marketplace": true,
+    "marketplace_waybill": "string"
+  },
+  "shipping/providers/{id}": {},
+  "members/me/vouchers": {},
+  "installation-fee/status": {
+    "storage_city_ids": [],
+    "product_group_ids": [],
+    "qty": [],
+    "qty.*": 1,
+    "data": [],
+    "data.*": []
+  },
+  "cities": {},
+  "complains": {
+    "problem": "string",
+    "images": [],
+    "images.*.name": "string"
+  },
+  "complain/create": {
+    "problem": "string",
+    "images": [],
+    "images.*.name": "string"
+  },
+  "instalments": {},
+  "instalments/{instalment}/detail": {},
+  "instalment-payment": {
+    "transaction_at": "YYYY-MM-DD",
+    "price": 1,
+    "image_path": "string"
+  },
+  "supplier/login": {},
+  "supplier/me": {},
+  "supplier/change-password": {},
+  "supplier/{city}/products": {
+    "product": [],
+    "product.qty": 1,
+    "product.city": "string"
+  },
+  "supplier/products/{id}": {
+    "product": [],
+    "product.qty": 1,
+    "product.city": "string"
+  },
+  "supplier/products/{id}/display-qty": {
+    "product": [],
+    "product.qty": 1,
+    "product.city": "string"
+  },
+  "supplier/{city}/withdrawals": {},
+  "supplier/{city}/withdrawals/{id}": {},
+  "supplier/{city}/withdrawals/{id}/export": {},
+  "supplier/{city}/reseller-transactions": {
+    "description": "string"
+  },
+  "supplier/{city}/reseller-assembly": {},
+  "supplier/reseller-transaction": {
+    "receiver_name": "string",
+    "phone_number": "08123456789",
+    "phone_number_2": "08123456789",
+    "postal_code": "string",
+    "address": "string",
+    "internal_note": "string",
+    "voucher": "string",
+    "paid_at": "YYYY-MM-DD",
+    "add_shipping_info": "string",
+    "add_shipping_cost": 1,
+    "transfer_amount": 1,
+    "carts": [],
+    "carts.*.qty": 1,
+    "carts.*.installable_type": true,
+    "carts.*.is_bonus": true,
+    "carts.*.is_instalment": true,
+    "transaction_shippings": [],
+    "transaction_shippings.*.city_from_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "transaction_shippings.*.provider_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "transaction_shippings.*.additional_cost": 1,
+    "transaction_shippings.*.additional_shipping_cost": 1,
+    "transaction_shippings.*.est_shipping_at": "YYYY-MM-DD",
+    "transaction_shippings.*.est_assembly_at": "YYYY-MM-DD",
+    "transaction_shippings.*.product_ids": [],
+    "transaction_shippings.*.product_ids.*": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "pickup_date": "YYYY-MM-DD",
+    "pickup_time": "YYYY-MM-DD",
+    "payment_proof": "string",
+    "spg": "string",
+    "is_balance": true,
+    "description": "string",
+    "balance_discount": 1,
+    "delivery_distance": 1,
+    "delivery_time": 1
+  },
+  "supplier/reseller-transactions/{id}": {
+    "description": "string"
+  },
+  "supplier/reseller-transactions/{id}/waybill": {
+    "description": "string"
+  },
+  "supplier/reseller-transactions/{id}/finished": {
+    "supplier_finish_proof": "string"
+  },
+  "supplier/reseller-transactions/{id}/provider-finished": {
+    "supplier_finish_proof": "string"
+  },
+  "supplier/reseller-transactions/{id}/shipping-label": {
+    "description": "string"
+  },
+  "supplier/resellertransaction/create-supplier-invoice-document/city": {
+    "supplier_finish_proof": "string"
+  },
+  "supplier/resellertransaction/create-supplier-credit-invoice-document/city": {
+    "supplier_finish_proof": "string"
+  },
+  "supplier/resellertransaction/create-supplier-waybill-document/city": {
+    "payment_proof": "string"
+  },
+  "supplier/resellertransaction/create-supplier-assembly-document/city": {
+    "payment_proof": "string"
+  },
+  "supplier/notifications": {},
+  "supplier/upload-payment-proof/{id}": {
+    "payment_proof": "string"
+  },
+  "supplier/{city}/complain": {
+    "complain_at": "YYYY-MM-DD",
+    "problem": "string",
+    "images": [],
+    "images.*.name": "string"
+  },
+  "supplier/{id}/complain/return-factory": {},
+  "supplier/{id}/complain/delivery-factory": {},
+  "supplier/{id}/complain/receive-user": {},
+  "supplier/complain": {
+    "complain_at": "YYYY-MM-DD",
+    "problem": "string",
+    "images": [],
+    "images.*.name": "string"
+  },
+  "supplier/{city}/instalment": {
+    "transaction_at": "YYYY-MM-DD",
+    "description": "string",
+    "tenor": 1,
+    "carts": [],
+    "carts.*.qty": 1
+  },
+  "supplier/instalment": {
+    "transaction_at": "YYYY-MM-DD",
+    "description": "string",
+    "tenor": 1,
+    "carts": [],
+    "carts.*.qty": 1
+  },
+  "supplier/instalment/{instalment}": {
+    "transaction_at": "YYYY-MM-DD",
+    "description": "string",
+    "tenor": 1,
+    "carts": [],
+    "carts.*.qty": 1
+  },
+  "supplier/instalment-payment": {
+    "transaction_at": "YYYY-MM-DD",
+    "price": 1,
+    "image_path": "string",
+    "payment_method_id": "string"
+  },
+  "supplier/instalment/{instalment}/detail-payment": {},
+  "supplier/instalment/{instalment}/detail": {},
+  "supplier/instalment-payment/{instalment_payment}": {},
+  "supplier/instalment/{instalment}/invoice": {},
+  "supplier/member": {
+    "email": "string",
+    "phone_number": "08123456789",
+    "password": "string",
+    "name": "string"
+  },
+  "supplier/{city}/view-reseller-transactions": {
+    "assembly_proof": "string",
+    "assembly_letter": "string"
+  },
+  "available-cities": {},
+  "available-cities/{id}": {},
+  "products/{city}": {},
+  "products/{city}/instalment": {},
+  "products/{id}/detail": {},
+  "products/{id}/cities": {},
+  "reseller-transaction/check-voucher": {},
+  "shipping/providers": {},
+  "shipping/provider/self_pickup": {},
+  "self_pickup/products/{city}": {},
+  "reseller-transaction/transaction/{id}": {},
+  "members": {},
+  "members/1": {},
+  "instalment/members": {},
+  "member/{id}/detail": {},
+  "installation-fee": {},
+  "payment-methods": {},
+  "list-ext-id": {},
+  "{id}/show-ext-id": {},
+  "complain/{id}/product-detail": {},
+  "list-instalment/{city}": {},
+  "list-instalment-transaction/{city}": {},
+  "list-instalment-transaction/{instalment}/detail": {},
+  "list-instalment-transaction/{instalment}/show": {},
+  "tenors": {},
+  "tenor/{tenor}/detail": {},
+  "reseller-transactions/{id}/preshipping": {
+    "assembly_proof": "string",
+    "assembly_letter": "string"
+  },
+  "reseller-assembly/{id}/preassembly": {
+    "assembly_proof": "string",
+    "assembly_letter": "string"
+  },
+  "reseller-assembly/{id}/finish-assembly": {
+    "assembly_proof": "string",
+    "assembly_letter": "string"
+  },
+  "members/kyc": {},
+  "members/update": {},
+  "members/me": {},
+  "members/change-password": {},
+  "members/change-phone": {
+    "verification_token": "string",
+    "token": "string",
+    "phone_number": "08123456789"
+  },
+  "products/{supplier}": {},
+  "products/detail/{id}": {}
+}

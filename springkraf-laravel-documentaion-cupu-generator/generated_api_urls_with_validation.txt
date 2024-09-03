@@ -1,0 +1,2016 @@
+Method: POST
+URL: kafra/get-channels
+Controller: KafraOtpController
+Action: getChannels
+Validation Rules:
+    - 'phone_number' => 'required|phone:mobile',
+
+Method: POST
+URL: kafra/send-otp
+Controller: KafraOtpController
+Action: sendOtp
+Validation Rules:
+    - 'cf-turnstile-response' => ['required', Rule::turnstile()],
+    - 'phone_number' => 'required|string',
+    - 'action' => ['required', Rule::in($this->kafraService->getActions())],
+    - 'channel' => 'required|string',
+
+Method: POST
+URL: kafra/verify-otp/{otp_id}
+Controller: KafraOtpController
+Action: verifyOtp
+Validation Rules:
+    - 'phone_number' => 'required|string',
+    - 'action' => ['required', Rule::in($this->kafraService->getActions())],
+    - 'code' => 'required|string'
+
+Method: POST
+URL: register
+Controller: API\Auth\RegisterController
+Action: register
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: check-user
+Controller: API\Auth\RegisterController
+Action: checkUser
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: login
+Controller: API\Auth\LoginController
+Action: login
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: reset-password
+Controller: API\Auth\ForgotPasswordController
+Action: sendResetLinkEmail
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: homepage/products/{supplier}
+Controller: API\ProductController
+Action: homepageIndex
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: homepage/products/detail/{id}
+Controller: API\ProductController
+Action: homepageShow
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: become-supplier
+Controller: LandingController
+Action: storeSupplier
+Validation Rules:
+    - 'name'          => 'required|string',
+    - 'entity_name'   => 'required|string',
+    - 'email'         => 'required|email',
+    - 'phone'         => 'required|phone:AUTO,ID',
+    - 'website'       => 'required',
+    - 'description'   => 'required|string',
+
+Method: GET
+URL: other-products
+Controller: API\ProductController
+Action: otherProducts
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: banners
+Controller: API\BannerController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: catalogs
+Controller: API\CatalogController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: suppliers
+Controller: API\SupplierController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: members/balance-mutations
+Controller: API\BalanceController
+Action: getMutation
+Validation Rules:
+    - 'amount' => 'required',
+
+Method: GET
+URL: members/balance-withdrawals
+Controller: API\BalanceController
+Action: getWithdrawal
+Validation Rules:
+    - 'amount' => 'required',
+
+Method: POST
+URL: members/balance-withdrawals
+Controller: API\BalanceController
+Action: postWithdrawal
+Validation Rules:
+    - 'amount' => 'required',
+
+Method: GET
+URL: members/contents
+Controller: API\ContentController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: gifts
+Controller: API\GiftController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: gift-exchanges
+Controller: API\GiftExchangeController
+Action: index
+Validation Rules:
+    - 'gift_id' => [
+    - 'required',
+    - Rule::exists('gifts', 'id')->where(function ($query) {
+    - $query->where('is_available', true);
+    - }),
+    - ],
+
+Method: POST
+URL: gift-exchanges
+Controller: API\GiftExchangeController
+Action: store
+Validation Rules:
+    - 'gift_id' => [
+    - 'required',
+    - Rule::exists('gifts', 'id')->where(function ($query) {
+    - $query->where('is_available', true);
+    - }),
+    - ],
+
+Method: GET
+URL: transactions
+Controller: API\TransactionController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: cart
+Controller: API\CartController
+Action: index
+Validation Rules:
+    - 'product_id' => 'required',
+    - 'qty' => 'required|numeric',
+
+Method: POST
+URL: cart
+Controller: API\CartController
+Action: store
+Validation Rules:
+    - 'product_id' => 'required',
+    - 'qty' => 'required|numeric',
+
+Method: GET
+URL: payment-method
+Controller: API\PaymentMethodController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: reseller-transactions
+Controller: API\ResellerTransactionController
+Action: index
+Validation Rules:
+    - 'carts' => 'required|array',
+    - 'carts.*' => 'required|uuid|exists:carts,id',
+    - 'city_froms' => 'required|array',
+    - 'city_froms.*' => 'required|uuid|exists:cities,id',
+    - 'providers' => 'required|array',
+    - 'providers.*' => 'required|uuid|exists:shipping_providers,id',
+    - 'subdistrict_to' => 'required|uuid|exists:shipping_subdistricts,id',
+    - 'pickup_date' => 'required|date',
+    - 'pickup_time' => 'required|date_format:H:i',
+    - 'is_installable' => 'required|array',
+    - 'is_installable.*' => 'required|boolean',
+    - 'postal_code' => 'required|string',
+    - 'address' => 'required|string',
+    - 'receiver_name' => 'required|string',
+    - 'phone_number' => 'required|phone:AUTO,ID',
+
+Method: POST
+URL: reseller-transaction
+Controller: API\ResellerTransactionController
+Action: store
+Validation Rules:
+    - 'carts' => 'required|array',
+    - 'carts.*' => 'required|uuid|exists:carts,id',
+    - 'city_froms' => 'required|array',
+    - 'city_froms.*' => 'required|uuid|exists:cities,id',
+    - 'providers' => 'required|array',
+    - 'providers.*' => 'required|uuid|exists:shipping_providers,id',
+    - 'subdistrict_to' => 'required|uuid|exists:shipping_subdistricts,id',
+    - 'pickup_date' => 'required|date',
+    - 'pickup_time' => 'required|date_format:H:i',
+    - 'is_installable' => 'required|array',
+    - 'is_installable.*' => 'required|boolean',
+    - 'postal_code' => 'required|string',
+    - 'address' => 'required|string',
+    - 'receiver_name' => 'required|string',
+    - 'phone_number' => 'required|phone:AUTO,ID',
+
+Method: GET
+URL: reseller-transaction/{id}
+Controller: API\ResellerTransactionController
+Action: detail
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: reseller-transaction/{id}/voucher
+Controller: API\ResellerTransactionController
+Action: checkVoucher
+Validation Rules:
+    - 'payment_proof' => 'required|string',
+    - 'marketplace_waybill' => 'nullable|string',
+
+Method: POST
+URL: reseller-transaction/{id}/payment
+Controller: API\ResellerTransactionController
+Action: updateToWaiting
+Validation Rules:
+    - 'payment_proof' => 'required|string',
+    - 'marketplace_waybill' => 'nullable|string',
+
+Method: POST
+URL: reseller-transaction/{id}/confirm
+Controller: API\ResellerTransactionController
+Action: confirmPayment
+Validation Rules:
+    - 'payment_proof' => 'required|string',
+    - 'marketplace_waybill' => 'nullable|string',
+
+Method: POST
+URL: reseller-transaction/{id}/cancel
+Controller: API\ResellerTransactionController
+Action: cancelPayment
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: reseller-transaction/{id}/update-proof
+Controller: API\ResellerTransactionController
+Action: updateProof
+Validation Rules:
+    - 'waybill_proof' => 'required|string',
+
+Method: GET
+URL: reseller-transaction/{id}/recalculate
+Controller: API\ResellerTransactionController
+Action: recalculate
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: shipping/provinces
+Controller: API\ShippingProvinceController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: shipping/cities
+Controller: API\ShippingCityController
+Action: index
+Validation Rules:
+    - 'province' => 'required|uuid'
+
+Method: GET
+URL: shipping/subdistricts
+Controller: API\ShippingSubdistrictController
+Action: index
+Validation Rules:
+    - 'city' => 'required|uuid'
+
+Method: POST
+URL: shipping/count
+Controller: API\ShippingController
+Action: index
+Validation Rules:
+    - 'subdistrict_to'      => 'required|uuid',
+    - 'carts'               => 'required|array|min:1',
+    - 'carts.*'             => 'required|uuid',
+    - 'city_froms'          => 'required|array|min:1',
+    - 'city_froms.*'        => 'required|uuid',
+    - 'providers'           => 'required|array|min:1',
+    - 'providers.*'         => 'required|uuid',
+    - 'is_marketplace'      => 'nullable|boolean',
+    - 'marketplace_waybill' => 'nullable|string',
+
+Method: GET
+URL: shipping/providers/{id}
+Controller: API\ShippingController
+Action: show
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: members/me/vouchers
+Controller: API\VoucherController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: installation-fee/status
+Controller: API\InstallationFeeController
+Action: installationStatus
+Validation Rules:
+    - 'storage_city_ids' => 'required|array',
+    - 'storage_city_ids.*' => 'required|exists:cities,id',
+    - 'product_group_ids' => 'required|array|size:' . $size,
+    - 'product_group_ids.*' => 'required|exists:product_groups,id',
+    - 'subdistrict_id' => 'nullable|required_if:type,delivery|exists:shipping_subdistricts,id',
+    - 'qty' => 'required|array|size:' . $size,
+    - 'qty.*' => 'required|integer',
+    - 'type' => ['required', new EnumValue(ShippingType::class)],
+    - 'data' => 'required|array',
+    - 'data.*' => 'required|array',
+    - 'data.*.product.id' => 'required|exists:products,id',
+
+Method: GET
+URL: cities
+Controller: API\CityController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: complains
+Controller: API\ComplainController
+Action: index
+Validation Rules:
+    - 'transaction_shipping_id'   => 'required|exists:transaction_shippings,id',
+    - 'problem'                   => 'required|string',
+    - 'images'                    => 'required|array|min:1',
+    - 'images.*.name'             => 'required|string',
+    - 'selected'                  => 'required|exists:reseller_transaction_details,id',
+
+Method: POST
+URL: complain/create
+Controller: API\ComplainController
+Action: store
+Validation Rules:
+    - 'transaction_shipping_id'   => 'required|exists:transaction_shippings,id',
+    - 'problem'                   => 'required|string',
+    - 'images'                    => 'required|array|min:1',
+    - 'images.*.name'             => 'required|string',
+    - 'selected'                  => 'required|exists:reseller_transaction_details,id',
+
+Method: GET
+URL: instalments
+Controller: API\InstalmentController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: instalments/{instalment}/detail
+Controller: API\InstalmentController
+Action: detail
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: instalment-payment
+Controller: API\InstalmentPaymentController
+Action: store
+Validation Rules:
+    - 'instalment_id' => 'required|exists:instalments,id',
+    - 'transaction_at' => 'required|date',
+    - 'price' => 'required|numeric',
+    - 'image_path' => 'required|string',
+    - 'payment_method_id' => 'required|exists:payment_methods,id'
+
+Method: POST
+URL: supplier/login
+Controller: API\Supplier\Auth\LoginController
+Action: login
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/me
+Controller: API\Supplier\ProfileController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/change-password
+Controller: API\Supplier\Auth\LoginController
+Action: update
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/{city}/products
+Controller: API\Supplier\ProductController
+Action: index
+Validation Rules:
+    - 'product' => 'required|array',
+    - 'product.qty' => 'required|numeric|min:0',
+    - 'product.city' => 'required|string|exists:cities,id'
+
+Method: POST
+URL: supplier/products/{id}
+Controller: API\Supplier\ProductController
+Action: update
+Validation Rules:
+    - 'product' => 'required|array',
+    - 'product.qty' => 'required|numeric|min:0',
+    - 'product.city' => 'required|string|exists:cities,id'
+
+Method: POST
+URL: supplier/products/{id}/display-qty
+Controller: API\Supplier\ProductController
+Action: updateDisplayQty
+Validation Rules:
+    - 'product' => 'required|array',
+    - 'product.qty' => 'required|numeric|min:0',
+    - 'product.city' => 'required|string|exists:cities,id'
+
+Method: GET
+URL: supplier/{city}/withdrawals
+Controller: API\Supplier\WithdrawalController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/{city}/withdrawals/{id}
+Controller: API\Supplier\WithdrawalController
+Action: getDetails
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/{city}/withdrawals/{id}/export
+Controller: API\Supplier\WithdrawalController
+Action: export
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/{city}/reseller-transactions
+Controller: API\Supplier\ResellerTransactionController
+Action: index
+Validation Rules:
+    - 'description' => 'nullable|string',
+
+Method: GET
+URL: supplier/{city}/reseller-assembly
+Controller: API\Supplier\ResellerTransactionController
+Action: indexAssembly
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/reseller-transaction
+Controller: API\Supplier\ResellerTransactionController
+Action: store
+Validation Rules:
+    - 'member_id' => 'nullable|exists:members,id',
+    - 'instalment_id' => 'nullable|exists:instalments,id',
+    - 'receiver_name' => 'required|string',
+    - 'phone_number' => 'required|phone:AUTO,ID',
+    - 'phone_number_2' => 'nullable|phone:AUTO,ID',
+    - 'shipping_province_id' => 'required|exists:shipping_provinces,id',
+    - 'shipping_city_id' => 'required|exists:shipping_cities,id',
+    - 'shipping_subdistrict_id' => 'required|exists:shipping_subdistricts,id',
+    - 'postal_code' => 'required|string',
+    - 'address' => 'required|string',
+    - "internal_note" => 'nullable|string',
+    - 'voucher' => 'nullable|string',
+    - 'paid_at' => 'required|date',
+    - 'add_shipping_info' => 'nullable|string',
+    - 'add_shipping_cost' => 'nullable|numeric',
+    - 'payment_method' => 'nullable|exists:payment_methods,id',
+    - 'transfer_amount' => 'required|numeric',
+    - 'carts' => 'required|array',
+    - 'carts.*.product_id' => 'required|exists:products,id|distinct',
+    - 'carts.*.qty' => 'required|numeric|min:1',
+    - 'carts.*.display_qty' => [
+    - 'nullable',
+    - 'numeric',
+    - function ($attribute, $value, $fail) {
+    - preg_match('/carts\.(\d+)\.display_qty/', $attribute, $matches);
+    - $index = $matches[1];
+    - $cityFromId = request()->input("carts.$index.city_from_id");
+    - $productId = request()->input("carts.$index.product_id");
+    - $qty = request()->input("carts.$index.qty"); // Get the qty for the current cart item
+    - $cityProduct = DB::table('city_product')
+    - ->where('city_id', $cityFromId)
+    - ->where('product_id', $productId)
+    - ->first();
+    - if ($cityProduct && ($value > ($cityProduct->display_qty ?? 0))) {
+    - $fail('The ' . $attribute . ' exceeds the maximum display quantity for the product in the specified city.');
+    - }
+    - if ($value > $qty) {
+    - $fail('The ' . $attribute . ' cannot exceed the quantity of the product in the cart.');
+    - }
+    - },
+    - ],
+    - 'carts.*.city_from_id' => 'required|exists:cities,id',
+    - 'carts.*.installable_type' => 'required|boolean',
+    - 'carts.*.is_bonus' => 'required|boolean',
+    - 'carts.*.provider_id' => 'required|exists:shipping_providers,id',
+    - 'carts.*.is_instalment' => 'required|boolean',
+    - 'carts.*.product_group_id' => 'nullable|exists:product_groups,id',
+    - 'carts.*.supplier_id' => 'required|exists:suppliers,id',
+    - 'transaction_shippings' => 'required|array',
+    - 'transaction_shippings.*.city_from_id' => 'required|uuid|exists:cities,id',
+    - 'transaction_shippings.*.provider_id' => 'required|uuid|exists:shipping_providers,id',
+    - 'transaction_shippings.*.additional_cost' => 'required|numeric|min:0',
+    - 'transaction_shippings.*.additional_shipping_cost' => 'required|numeric|min:0',
+    - 'transaction_shippings.*.supplier_id' => 'nullable|exists:suppliers,id',
+    - 'transaction_shippings.*.est_shipping_at' => 'nullable|date',
+    - 'transaction_shippings.*.est_assembly_at' => 'nullable|date',
+    - 'transaction_shippings.*.product_ids' => 'required|array',
+    - 'transaction_shippings.*.product_ids.*' => 'required|uuid|exists:products,id',
+    - 'pickup_date' => 'required|date',
+    - 'pickup_time' => 'required|date_format:H:i',
+    - 'payment_proof' => 'nullable|string',
+    - 'spg' => 'required|string',
+    - 'is_balance' => 'required|boolean',
+    - 'description' => 'nullable|string',
+    - 'balance_discount' => 'required|numeric',
+    - 'payment_type' => [
+    - 'required',
+    - new EnumValue(PaymentMethodType::class)
+    - ],
+    - 'delivery_distance' => 'required|numeric|max:9999',
+    - 'delivery_time' => 'required|numeric|max:9999',
+
+Method: POST
+URL: supplier/reseller-transactions/{id}
+Controller: API\Supplier\ResellerTransactionController
+Action: process
+Validation Rules:
+    - 'description' => 'nullable|string',
+
+Method: POST
+URL: supplier/reseller-transactions/{id}/waybill
+Controller: API\Supplier\ResellerTransactionController
+Action: addWaybillCode
+Validation Rules:
+    - 'description' => 'nullable|string',
+
+Method: POST
+URL: supplier/reseller-transactions/{id}/finished
+Controller: API\Supplier\ResellerTransactionController
+Action: updateToFinished
+Validation Rules:
+    - 'supplier_finish_proof' => 'required|string',
+
+Method: POST
+URL: supplier/reseller-transactions/{id}/provider-finished
+Controller: API\Supplier\ResellerTransactionController
+Action: providerFinished
+Validation Rules:
+    - 'supplier_finish_proof' => 'required|string',
+
+Method: POST
+URL: supplier/reseller-transactions/{id}/shipping-label
+Controller: API\Supplier\ResellerTransactionController
+Action: getShippingLabel
+Validation Rules:
+    - 'description' => 'nullable|string',
+
+Method: GET
+URL: supplier/resellertransaction/create-supplier-invoice-document/city
+Controller: API\Supplier\ResellerTransactionController
+Action: createSupplierInvoiceDocument
+Validation Rules:
+    - 'supplier_finish_proof' => 'required|string',
+
+Method: GET
+URL: supplier/resellertransaction/create-supplier-credit-invoice-document/city
+Controller: API\Supplier\ResellerTransactionController
+Action: createSupplierCreditInvoiceDocument
+Validation Rules:
+    - 'supplier_finish_proof' => 'required|string',
+
+Method: GET
+URL: supplier/resellertransaction/create-supplier-waybill-document/city
+Controller: API\Supplier\ResellerTransactionController
+Action: createSupplierWaybill
+Validation Rules:
+    - 'payment_proof' => 'required|string',
+
+Method: GET
+URL: supplier/resellertransaction/create-supplier-assembly-document/city
+Controller: API\Supplier\ResellerTransactionController
+Action: createSupplierAssembly
+Validation Rules:
+    - 'payment_proof' => 'required|string',
+
+Method: GET
+URL: supplier/notifications
+Controller: API\Supplier\NotificationController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/notifications
+Controller: API\Supplier\NotificationController
+Action: read
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/upload-payment-proof/{id}
+Controller: API\Supplier\ResellerTransactionController
+Action: supplierPaymentProof
+Validation Rules:
+    - 'payment_proof' => 'required|string',
+
+Method: GET
+URL: supplier/{city}/complain
+Controller: API\Supplier\ComplainController
+Action: index
+Validation Rules:
+    - 'transaction_shipping_id' => 'required|exists:transaction_shippings,id',
+    - 'complain_at' => 'required|date',
+    - 'problem' => 'required|string',
+    - 'images' => 'required|array|min:1',
+    - 'images.*.name' => 'required|string',
+    - 'selected' => 'required|exists:reseller_transaction_details,id',
+
+Method: POST
+URL: supplier/{id}/complain/return-factory
+Controller: API\Supplier\ComplainController
+Action: returnFactory
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/{id}/complain/delivery-factory
+Controller: API\Supplier\ComplainController
+Action: deliveryFactory
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/{id}/complain/receive-user
+Controller: API\Supplier\ComplainController
+Action: receiveUser
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/complain
+Controller: API\Supplier\ComplainController
+Action: store
+Validation Rules:
+    - 'transaction_shipping_id' => 'required|exists:transaction_shippings,id',
+    - 'complain_at' => 'required|date',
+    - 'problem' => 'required|string',
+    - 'images' => 'required|array|min:1',
+    - 'images.*.name' => 'required|string',
+    - 'selected' => 'required|exists:reseller_transaction_details,id',
+
+Method: GET
+URL: supplier/{city}/instalment
+Controller: API\Supplier\InstalmentController
+Action: index
+Validation Rules:
+    - 'member_id' => 'required|exists:members,id',
+    - 'city_id' => 'required|exists:cities,id',
+    - 'transaction_at' => 'required|date',
+    - 'description' => 'nullable|string',
+    - 'tenor' => 'required|numeric',
+    - 'carts' => 'required|array|min:1',
+    - 'carts.*.product_id' => 'required|exists:products,id',
+    - 'carts.*.qty' => 'required|numeric|min:1',
+
+Method: POST
+URL: supplier/instalment
+Controller: API\Supplier\InstalmentController
+Action: store
+Validation Rules:
+    - 'member_id' => 'required|exists:members,id',
+    - 'city_id' => 'required|exists:cities,id',
+    - 'transaction_at' => 'required|date',
+    - 'description' => 'nullable|string',
+    - 'tenor' => 'required|numeric',
+    - 'carts' => 'required|array|min:1',
+    - 'carts.*.product_id' => 'required|exists:products,id',
+    - 'carts.*.qty' => 'required|numeric|min:1',
+
+Method: PUT
+URL: supplier/instalment/{instalment}
+Controller: API\Supplier\InstalmentController
+Action: update
+Validation Rules:
+    - 'member_id' => 'required|exists:members,id',
+    - 'city_id' => 'required|exists:cities,id',
+    - 'transaction_at' => 'required|date',
+    - 'description' => 'required|string',
+    - 'tenor' => 'required|numeric|min:1',
+    - 'carts' => 'required|array|min:1',
+    - 'carts.*.id' => 'nullable|exists:instalment_products,id',
+    - 'carts.*.product_id' => 'required|exists:products,id',
+    - 'carts.*.qty' => 'required|numeric|min:1',
+
+Method: GET
+URL: supplier/instalment-payment
+Controller: API\Supplier\InstalmentPaymentController
+Action: index
+Validation Rules:
+    - 'instalment_id' => 'required|exists:instalments,id',
+    - 'transaction_at' => 'required|date',
+    - 'price' => 'required|numeric',
+    - 'image_path' => 'nullable|string',
+    - 'payment_method_id' => 'required|string',
+
+Method: POST
+URL: supplier/instalment-payment
+Controller: API\Supplier\InstalmentPaymentController
+Action: store
+Validation Rules:
+    - 'instalment_id' => 'required|exists:instalments,id',
+    - 'transaction_at' => 'required|date',
+    - 'price' => 'required|numeric',
+    - 'image_path' => 'nullable|string',
+    - 'payment_method_id' => 'required|string',
+
+Method: GET
+URL: supplier/instalment/{instalment}/detail-payment
+Controller: API\Supplier\InstalmentController
+Action: detailPayment
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/instalment/{instalment}/detail
+Controller: API\Supplier\InstalmentController
+Action: detailInstalment
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/instalment-payment/{instalment_payment}
+Controller: API\Supplier\InstalmentPaymentController
+Action: createInstalmentPaymentInvoice
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/instalment/{instalment}/invoice
+Controller: API\Supplier\InstalmentController
+Action: createInstalmentInvoice
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/member
+Controller: API\Supplier\MemberController
+Action: store
+Validation Rules:
+    - 'email' => 'required|string|email:dns,filter|max:255|unique:members,email',
+    - 'phone_number' => 'required|phone:AUTO,ID|unique:members,phone_number',
+    - 'password' => 'required|string|min:6|confirmed',
+    - 'name' => 'required|string',
+
+Method: GET
+URL: supplier/{city}/view-reseller-transactions
+Controller: API\Supplier\ResellerTransactionController
+Action: viewTransaction
+Validation Rules:
+    - 'assembly_proof' => 'required|string',
+    - 'assembly_letter' => 'required|string',
+
+Method: GET
+URL: available-cities
+Controller: API\Supplier\API\CityController
+Action: availableCities
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: available-cities/{id}
+Controller: API\Supplier\API\CityController
+Action: show
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: products/{city}
+Controller: API\Supplier\API\ProductController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: products/{city}/instalment
+Controller: API\Supplier\API\ProductController
+Action: instalment
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: products/{id}/detail
+Controller: API\Supplier\API\ProductController
+Action: productDetail
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: products/{id}/cities
+Controller: API\Supplier\API\ProductController
+Action: getCity
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: reseller-transaction/check-voucher
+Controller: Admin\Api\ResellerTransactionController
+Action: checkVoucher
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: shipping/provinces
+Controller: Admin\Api\ShippingProvinceController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: shipping/cities
+Controller: Admin\Api\ShippingCityController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: shipping/subdistricts
+Controller: Admin\Api\ShippingSubdistrictController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: shipping/providers
+Controller: Admin\Api\ShippingProviderController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: shipping/provider/self_pickup
+Controller: Admin\Api\ShippingProviderController
+Action: selfPickup
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: self_pickup/products/{city}
+Controller: API\Supplier\API\ProductController
+Action: selfPickup
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: reseller-transaction/transaction/{id}
+Controller: Admin\Api\ResellerTransactionController
+Action: transaction
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: members
+Controller: Admin\Api\MemberController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: members/1
+Controller: Admin\Api\MemberController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: instalment/members
+Controller: Admin\Api\MemberController
+Action: indexInstalment
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: member/{id}/detail
+Controller: Admin\Api\MemberController
+Action: memberDetail
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: installation-fee
+Controller: Admin\Api\InstallationFeeController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: payment-methods
+Controller: Admin\Api\PaymentMethodController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: list-ext-id
+Controller: API\Supplier\API\ComplainController
+Action: listExtId
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: {id}/show-ext-id
+Controller: API\Supplier\API\ComplainController
+Action: showExtId
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: complain/{id}/product-detail
+Controller: API\Supplier\API\ComplainController
+Action: productDetail
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: list-instalment/{city}
+Controller: API\Supplier\API\InstalmentController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: list-instalment-transaction/{city}
+Controller: Admin\Api\InstalmentController
+Action: indexSupplier
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: list-instalment-transaction/{instalment}/detail
+Controller: Admin\Api\InstalmentController
+Action: detail
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: list-instalment-transaction/{instalment}/show
+Controller: Admin\Api\InstalmentController
+Action: show
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: check-user
+Controller: API\Auth\RegisterController
+Action: checkUser
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: tenors
+Controller: API\Supplier\TenorController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: tenor/{tenor}/detail
+Controller: API\Supplier\TenorController
+Action: show
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: suppliers
+Controller: API\Supplier\API\SupplierController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: reseller-transactions/{id}/preshipping
+Controller: API\Supplier\ResellerTransactionController
+Action: preshipping
+Validation Rules:
+    - 'assembly_proof' => 'required|string',
+    - 'assembly_letter' => 'required|string',
+
+Method: POST
+URL: reseller-assembly/{id}/preassembly
+Controller: API\Supplier\ResellerTransactionController
+Action: preassembly
+Validation Rules:
+    - 'assembly_proof' => 'required|string',
+    - 'assembly_letter' => 'required|string',
+
+Method: POST
+URL: reseller-assembly/{id}/finish-assembly
+Controller: API\Supplier\ResellerTransactionController
+Action: finishAssembly
+Validation Rules:
+    - 'assembly_proof' => 'required|string',
+    - 'assembly_letter' => 'required|string',
+
+Method: GET
+URL: banners
+Controller: API\BannerController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: kafra/get-channels
+Controller: KafraOtpController
+Action: getChannels
+Validation Rules:
+    - 'phone_number' => 'required|phone:mobile',
+
+Method: POST
+URL: kafra/send-otp
+Controller: KafraOtpController
+Action: sendOtp
+Validation Rules:
+    - 'cf-turnstile-response' => ['required', Rule::turnstile()],
+    - 'phone_number' => 'required|string',
+    - 'action' => ['required', Rule::in($this->kafraService->getActions())],
+    - 'channel' => 'required|string',
+
+Method: POST
+URL: kafra/verify-otp/{otp_id}
+Controller: KafraOtpController
+Action: verifyOtp
+Validation Rules:
+    - 'phone_number' => 'required|string',
+    - 'action' => ['required', Rule::in($this->kafraService->getActions())],
+    - 'code' => 'required|string'
+
+Method: POST
+URL: register
+Controller: API\Auth\RegisterController
+Action: register
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: check-user
+Controller: API\Auth\RegisterController
+Action: checkUser
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: login
+Controller: API\Auth\LoginController
+Action: login
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: reset-password
+Controller: API\Auth\ForgotPasswordController
+Action: sendResetLinkEmail
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: homepage/products/{supplier}
+Controller: API\ProductController
+Action: homepageIndex
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: homepage/products/detail/{id}
+Controller: API\ProductController
+Action: homepageShow
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: become-supplier
+Controller: LandingController
+Action: storeSupplier
+Validation Rules:
+    - 'name'          => 'required|string',
+    - 'entity_name'   => 'required|string',
+    - 'email'         => 'required|email',
+    - 'phone'         => 'required|phone:AUTO,ID',
+    - 'website'       => 'required',
+    - 'description'   => 'required|string',
+
+Method: GET
+URL: other-products
+Controller: API\ProductController
+Action: otherProducts
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: banners
+Controller: API\BannerController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: catalogs
+Controller: API\CatalogController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: suppliers
+Controller: API\SupplierController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: members/kyc
+Controller: API\MemberController
+Action: uploadKyc
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: members/update
+Controller: API\MemberController
+Action: update
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: members/me
+Controller: API\MemberController
+Action: getMe
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: members/change-password
+Controller: API\Auth\ChangePasswordController
+Action: changePassword
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: members/change-phone
+Controller: API\Auth\ChangePhoneNumberController
+Action: changePhone
+Validation Rules:
+    - 'verification_token' => 'nullable|required_without:token|string',
+    - 'token' => 'nullable|required_without:verification_token|string',
+    - 'phone_number' => 'required|phone:AUTO,ID',
+
+Method: GET
+URL: products/{supplier}
+Controller: API\ProductController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: products/detail/{id}
+Controller: API\ProductController
+Action: show
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: members/balance-mutations
+Controller: API\BalanceController
+Action: getMutation
+Validation Rules:
+    - 'amount' => 'required',
+
+Method: GET
+URL: members/balance-withdrawals
+Controller: API\BalanceController
+Action: getWithdrawal
+Validation Rules:
+    - 'amount' => 'required',
+
+Method: POST
+URL: members/balance-withdrawals
+Controller: API\BalanceController
+Action: postWithdrawal
+Validation Rules:
+    - 'amount' => 'required',
+
+Method: GET
+URL: members/contents
+Controller: API\ContentController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: gifts
+Controller: API\GiftController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: gift-exchanges
+Controller: API\GiftExchangeController
+Action: index
+Validation Rules:
+    - 'gift_id' => [
+    - 'required',
+    - Rule::exists('gifts', 'id')->where(function ($query) {
+    - $query->where('is_available', true);
+    - }),
+    - ],
+
+Method: POST
+URL: gift-exchanges
+Controller: API\GiftExchangeController
+Action: store
+Validation Rules:
+    - 'gift_id' => [
+    - 'required',
+    - Rule::exists('gifts', 'id')->where(function ($query) {
+    - $query->where('is_available', true);
+    - }),
+    - ],
+
+Method: GET
+URL: transactions
+Controller: API\TransactionController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: cart
+Controller: API\CartController
+Action: index
+Validation Rules:
+    - 'product_id' => 'required',
+    - 'qty' => 'required|numeric',
+
+Method: POST
+URL: cart
+Controller: API\CartController
+Action: store
+Validation Rules:
+    - 'product_id' => 'required',
+    - 'qty' => 'required|numeric',
+
+Method: GET
+URL: payment-method
+Controller: API\PaymentMethodController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: reseller-transactions
+Controller: API\ResellerTransactionController
+Action: index
+Validation Rules:
+    - 'carts' => 'required|array',
+    - 'carts.*' => 'required|uuid|exists:carts,id',
+    - 'city_froms' => 'required|array',
+    - 'city_froms.*' => 'required|uuid|exists:cities,id',
+    - 'providers' => 'required|array',
+    - 'providers.*' => 'required|uuid|exists:shipping_providers,id',
+    - 'subdistrict_to' => 'required|uuid|exists:shipping_subdistricts,id',
+    - 'pickup_date' => 'required|date',
+    - 'pickup_time' => 'required|date_format:H:i',
+    - 'is_installable' => 'required|array',
+    - 'is_installable.*' => 'required|boolean',
+    - 'postal_code' => 'required|string',
+    - 'address' => 'required|string',
+    - 'receiver_name' => 'required|string',
+    - 'phone_number' => 'required|phone:AUTO,ID',
+
+Method: POST
+URL: reseller-transaction
+Controller: API\ResellerTransactionController
+Action: store
+Validation Rules:
+    - 'carts' => 'required|array',
+    - 'carts.*' => 'required|uuid|exists:carts,id',
+    - 'city_froms' => 'required|array',
+    - 'city_froms.*' => 'required|uuid|exists:cities,id',
+    - 'providers' => 'required|array',
+    - 'providers.*' => 'required|uuid|exists:shipping_providers,id',
+    - 'subdistrict_to' => 'required|uuid|exists:shipping_subdistricts,id',
+    - 'pickup_date' => 'required|date',
+    - 'pickup_time' => 'required|date_format:H:i',
+    - 'is_installable' => 'required|array',
+    - 'is_installable.*' => 'required|boolean',
+    - 'postal_code' => 'required|string',
+    - 'address' => 'required|string',
+    - 'receiver_name' => 'required|string',
+    - 'phone_number' => 'required|phone:AUTO,ID',
+
+Method: GET
+URL: reseller-transaction/{id}
+Controller: API\ResellerTransactionController
+Action: detail
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: reseller-transaction/{id}/voucher
+Controller: API\ResellerTransactionController
+Action: checkVoucher
+Validation Rules:
+    - 'payment_proof' => 'required|string',
+    - 'marketplace_waybill' => 'nullable|string',
+
+Method: POST
+URL: reseller-transaction/{id}/payment
+Controller: API\ResellerTransactionController
+Action: updateToWaiting
+Validation Rules:
+    - 'payment_proof' => 'required|string',
+    - 'marketplace_waybill' => 'nullable|string',
+
+Method: POST
+URL: reseller-transaction/{id}/confirm
+Controller: API\ResellerTransactionController
+Action: confirmPayment
+Validation Rules:
+    - 'payment_proof' => 'required|string',
+    - 'marketplace_waybill' => 'nullable|string',
+
+Method: POST
+URL: reseller-transaction/{id}/cancel
+Controller: API\ResellerTransactionController
+Action: cancelPayment
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: reseller-transaction/{id}/update-proof
+Controller: API\ResellerTransactionController
+Action: updateProof
+Validation Rules:
+    - 'waybill_proof' => 'required|string',
+
+Method: GET
+URL: reseller-transaction/{id}/recalculate
+Controller: API\ResellerTransactionController
+Action: recalculate
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: shipping/provinces
+Controller: API\ShippingProvinceController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: shipping/cities
+Controller: API\ShippingCityController
+Action: index
+Validation Rules:
+    - 'province' => 'required|uuid'
+
+Method: GET
+URL: shipping/subdistricts
+Controller: API\ShippingSubdistrictController
+Action: index
+Validation Rules:
+    - 'city' => 'required|uuid'
+
+Method: POST
+URL: shipping/count
+Controller: API\ShippingController
+Action: index
+Validation Rules:
+    - 'subdistrict_to'      => 'required|uuid',
+    - 'carts'               => 'required|array|min:1',
+    - 'carts.*'             => 'required|uuid',
+    - 'city_froms'          => 'required|array|min:1',
+    - 'city_froms.*'        => 'required|uuid',
+    - 'providers'           => 'required|array|min:1',
+    - 'providers.*'         => 'required|uuid',
+    - 'is_marketplace'      => 'nullable|boolean',
+    - 'marketplace_waybill' => 'nullable|string',
+
+Method: GET
+URL: shipping/providers/{id}
+Controller: API\ShippingController
+Action: show
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: members/me/vouchers
+Controller: API\VoucherController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: installation-fee/status
+Controller: API\InstallationFeeController
+Action: installationStatus
+Validation Rules:
+    - 'storage_city_ids' => 'required|array',
+    - 'storage_city_ids.*' => 'required|exists:cities,id',
+    - 'product_group_ids' => 'required|array|size:' . $size,
+    - 'product_group_ids.*' => 'required|exists:product_groups,id',
+    - 'subdistrict_id' => 'nullable|required_if:type,delivery|exists:shipping_subdistricts,id',
+    - 'qty' => 'required|array|size:' . $size,
+    - 'qty.*' => 'required|integer',
+    - 'type' => ['required', new EnumValue(ShippingType::class)],
+    - 'data' => 'required|array',
+    - 'data.*' => 'required|array',
+    - 'data.*.product.id' => 'required|exists:products,id',
+
+Method: GET
+URL: cities
+Controller: API\CityController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: complains
+Controller: API\ComplainController
+Action: index
+Validation Rules:
+    - 'transaction_shipping_id'   => 'required|exists:transaction_shippings,id',
+    - 'problem'                   => 'required|string',
+    - 'images'                    => 'required|array|min:1',
+    - 'images.*.name'             => 'required|string',
+    - 'selected'                  => 'required|exists:reseller_transaction_details,id',
+
+Method: POST
+URL: complain/create
+Controller: API\ComplainController
+Action: store
+Validation Rules:
+    - 'transaction_shipping_id'   => 'required|exists:transaction_shippings,id',
+    - 'problem'                   => 'required|string',
+    - 'images'                    => 'required|array|min:1',
+    - 'images.*.name'             => 'required|string',
+    - 'selected'                  => 'required|exists:reseller_transaction_details,id',
+
+Method: GET
+URL: instalments
+Controller: API\InstalmentController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: instalments/{instalment}/detail
+Controller: API\InstalmentController
+Action: detail
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: instalment-payment
+Controller: API\InstalmentPaymentController
+Action: store
+Validation Rules:
+    - 'instalment_id' => 'required|exists:instalments,id',
+    - 'transaction_at' => 'required|date',
+    - 'price' => 'required|numeric',
+    - 'image_path' => 'required|string',
+    - 'payment_method_id' => 'required|exists:payment_methods,id'
+
+Method: POST
+URL: supplier/login
+Controller: API\Supplier\Auth\LoginController
+Action: login
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/me
+Controller: API\Supplier\ProfileController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/change-password
+Controller: API\Supplier\Auth\LoginController
+Action: update
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/{city}/products
+Controller: API\Supplier\ProductController
+Action: index
+Validation Rules:
+    - 'product' => 'required|array',
+    - 'product.qty' => 'required|numeric|min:0',
+    - 'product.city' => 'required|string|exists:cities,id'
+
+Method: POST
+URL: supplier/products/{id}
+Controller: API\Supplier\ProductController
+Action: update
+Validation Rules:
+    - 'product' => 'required|array',
+    - 'product.qty' => 'required|numeric|min:0',
+    - 'product.city' => 'required|string|exists:cities,id'
+
+Method: POST
+URL: supplier/products/{id}/display-qty
+Controller: API\Supplier\ProductController
+Action: updateDisplayQty
+Validation Rules:
+    - 'product' => 'required|array',
+    - 'product.qty' => 'required|numeric|min:0',
+    - 'product.city' => 'required|string|exists:cities,id'
+
+Method: GET
+URL: supplier/{city}/withdrawals
+Controller: API\Supplier\WithdrawalController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/{city}/withdrawals/{id}
+Controller: API\Supplier\WithdrawalController
+Action: getDetails
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/{city}/withdrawals/{id}/export
+Controller: API\Supplier\WithdrawalController
+Action: export
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/{city}/reseller-transactions
+Controller: API\Supplier\ResellerTransactionController
+Action: index
+Validation Rules:
+    - 'description' => 'nullable|string',
+
+Method: GET
+URL: supplier/{city}/reseller-assembly
+Controller: API\Supplier\ResellerTransactionController
+Action: indexAssembly
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/reseller-transaction
+Controller: API\Supplier\ResellerTransactionController
+Action: store
+Validation Rules:
+    - 'member_id' => 'nullable|exists:members,id',
+    - 'instalment_id' => 'nullable|exists:instalments,id',
+    - 'receiver_name' => 'required|string',
+    - 'phone_number' => 'required|phone:AUTO,ID',
+    - 'phone_number_2' => 'nullable|phone:AUTO,ID',
+    - 'shipping_province_id' => 'required|exists:shipping_provinces,id',
+    - 'shipping_city_id' => 'required|exists:shipping_cities,id',
+    - 'shipping_subdistrict_id' => 'required|exists:shipping_subdistricts,id',
+    - 'postal_code' => 'required|string',
+    - 'address' => 'required|string',
+    - "internal_note" => 'nullable|string',
+    - 'voucher' => 'nullable|string',
+    - 'paid_at' => 'required|date',
+    - 'add_shipping_info' => 'nullable|string',
+    - 'add_shipping_cost' => 'nullable|numeric',
+    - 'payment_method' => 'nullable|exists:payment_methods,id',
+    - 'transfer_amount' => 'required|numeric',
+    - 'carts' => 'required|array',
+    - 'carts.*.product_id' => 'required|exists:products,id|distinct',
+    - 'carts.*.qty' => 'required|numeric|min:1',
+    - 'carts.*.display_qty' => [
+    - 'nullable',
+    - 'numeric',
+    - function ($attribute, $value, $fail) {
+    - preg_match('/carts\.(\d+)\.display_qty/', $attribute, $matches);
+    - $index = $matches[1];
+    - $cityFromId = request()->input("carts.$index.city_from_id");
+    - $productId = request()->input("carts.$index.product_id");
+    - $qty = request()->input("carts.$index.qty"); // Get the qty for the current cart item
+    - $cityProduct = DB::table('city_product')
+    - ->where('city_id', $cityFromId)
+    - ->where('product_id', $productId)
+    - ->first();
+    - if ($cityProduct && ($value > ($cityProduct->display_qty ?? 0))) {
+    - $fail('The ' . $attribute . ' exceeds the maximum display quantity for the product in the specified city.');
+    - }
+    - if ($value > $qty) {
+    - $fail('The ' . $attribute . ' cannot exceed the quantity of the product in the cart.');
+    - }
+    - },
+    - ],
+    - 'carts.*.city_from_id' => 'required|exists:cities,id',
+    - 'carts.*.installable_type' => 'required|boolean',
+    - 'carts.*.is_bonus' => 'required|boolean',
+    - 'carts.*.provider_id' => 'required|exists:shipping_providers,id',
+    - 'carts.*.is_instalment' => 'required|boolean',
+    - 'carts.*.product_group_id' => 'nullable|exists:product_groups,id',
+    - 'carts.*.supplier_id' => 'required|exists:suppliers,id',
+    - 'transaction_shippings' => 'required|array',
+    - 'transaction_shippings.*.city_from_id' => 'required|uuid|exists:cities,id',
+    - 'transaction_shippings.*.provider_id' => 'required|uuid|exists:shipping_providers,id',
+    - 'transaction_shippings.*.additional_cost' => 'required|numeric|min:0',
+    - 'transaction_shippings.*.additional_shipping_cost' => 'required|numeric|min:0',
+    - 'transaction_shippings.*.supplier_id' => 'nullable|exists:suppliers,id',
+    - 'transaction_shippings.*.est_shipping_at' => 'nullable|date',
+    - 'transaction_shippings.*.est_assembly_at' => 'nullable|date',
+    - 'transaction_shippings.*.product_ids' => 'required|array',
+    - 'transaction_shippings.*.product_ids.*' => 'required|uuid|exists:products,id',
+    - 'pickup_date' => 'required|date',
+    - 'pickup_time' => 'required|date_format:H:i',
+    - 'payment_proof' => 'nullable|string',
+    - 'spg' => 'required|string',
+    - 'is_balance' => 'required|boolean',
+    - 'description' => 'nullable|string',
+    - 'balance_discount' => 'required|numeric',
+    - 'payment_type' => [
+    - 'required',
+    - new EnumValue(PaymentMethodType::class)
+    - ],
+    - 'delivery_distance' => 'required|numeric|max:9999',
+    - 'delivery_time' => 'required|numeric|max:9999',
+
+Method: POST
+URL: supplier/reseller-transactions/{id}
+Controller: API\Supplier\ResellerTransactionController
+Action: process
+Validation Rules:
+    - 'description' => 'nullable|string',
+
+Method: POST
+URL: supplier/reseller-transactions/{id}/waybill
+Controller: API\Supplier\ResellerTransactionController
+Action: addWaybillCode
+Validation Rules:
+    - 'description' => 'nullable|string',
+
+Method: POST
+URL: supplier/reseller-transactions/{id}/finished
+Controller: API\Supplier\ResellerTransactionController
+Action: updateToFinished
+Validation Rules:
+    - 'supplier_finish_proof' => 'required|string',
+
+Method: POST
+URL: supplier/reseller-transactions/{id}/provider-finished
+Controller: API\Supplier\ResellerTransactionController
+Action: providerFinished
+Validation Rules:
+    - 'supplier_finish_proof' => 'required|string',
+
+Method: POST
+URL: supplier/reseller-transactions/{id}/shipping-label
+Controller: API\Supplier\ResellerTransactionController
+Action: getShippingLabel
+Validation Rules:
+    - 'description' => 'nullable|string',
+
+Method: GET
+URL: supplier/resellertransaction/create-supplier-invoice-document/city
+Controller: API\Supplier\ResellerTransactionController
+Action: createSupplierInvoiceDocument
+Validation Rules:
+    - 'supplier_finish_proof' => 'required|string',
+
+Method: GET
+URL: supplier/resellertransaction/create-supplier-credit-invoice-document/city
+Controller: API\Supplier\ResellerTransactionController
+Action: createSupplierCreditInvoiceDocument
+Validation Rules:
+    - 'supplier_finish_proof' => 'required|string',
+
+Method: GET
+URL: supplier/resellertransaction/create-supplier-waybill-document/city
+Controller: API\Supplier\ResellerTransactionController
+Action: createSupplierWaybill
+Validation Rules:
+    - 'payment_proof' => 'required|string',
+
+Method: GET
+URL: supplier/resellertransaction/create-supplier-assembly-document/city
+Controller: API\Supplier\ResellerTransactionController
+Action: createSupplierAssembly
+Validation Rules:
+    - 'payment_proof' => 'required|string',
+
+Method: GET
+URL: supplier/notifications
+Controller: API\Supplier\NotificationController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/notifications
+Controller: API\Supplier\NotificationController
+Action: read
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/upload-payment-proof/{id}
+Controller: API\Supplier\ResellerTransactionController
+Action: supplierPaymentProof
+Validation Rules:
+    - 'payment_proof' => 'required|string',
+
+Method: GET
+URL: supplier/{city}/complain
+Controller: API\Supplier\ComplainController
+Action: index
+Validation Rules:
+    - 'transaction_shipping_id' => 'required|exists:transaction_shippings,id',
+    - 'complain_at' => 'required|date',
+    - 'problem' => 'required|string',
+    - 'images' => 'required|array|min:1',
+    - 'images.*.name' => 'required|string',
+    - 'selected' => 'required|exists:reseller_transaction_details,id',
+
+Method: POST
+URL: supplier/{id}/complain/return-factory
+Controller: API\Supplier\ComplainController
+Action: returnFactory
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/{id}/complain/delivery-factory
+Controller: API\Supplier\ComplainController
+Action: deliveryFactory
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/{id}/complain/receive-user
+Controller: API\Supplier\ComplainController
+Action: receiveUser
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/complain
+Controller: API\Supplier\ComplainController
+Action: store
+Validation Rules:
+    - 'transaction_shipping_id' => 'required|exists:transaction_shippings,id',
+    - 'complain_at' => 'required|date',
+    - 'problem' => 'required|string',
+    - 'images' => 'required|array|min:1',
+    - 'images.*.name' => 'required|string',
+    - 'selected' => 'required|exists:reseller_transaction_details,id',
+
+Method: GET
+URL: supplier/{city}/instalment
+Controller: API\Supplier\InstalmentController
+Action: index
+Validation Rules:
+    - 'member_id' => 'required|exists:members,id',
+    - 'city_id' => 'required|exists:cities,id',
+    - 'transaction_at' => 'required|date',
+    - 'description' => 'nullable|string',
+    - 'tenor' => 'required|numeric',
+    - 'carts' => 'required|array|min:1',
+    - 'carts.*.product_id' => 'required|exists:products,id',
+    - 'carts.*.qty' => 'required|numeric|min:1',
+
+Method: POST
+URL: supplier/instalment
+Controller: API\Supplier\InstalmentController
+Action: store
+Validation Rules:
+    - 'member_id' => 'required|exists:members,id',
+    - 'city_id' => 'required|exists:cities,id',
+    - 'transaction_at' => 'required|date',
+    - 'description' => 'nullable|string',
+    - 'tenor' => 'required|numeric',
+    - 'carts' => 'required|array|min:1',
+    - 'carts.*.product_id' => 'required|exists:products,id',
+    - 'carts.*.qty' => 'required|numeric|min:1',
+
+Method: PUT
+URL: supplier/instalment/{instalment}
+Controller: API\Supplier\InstalmentController
+Action: update
+Validation Rules:
+    - 'member_id' => 'required|exists:members,id',
+    - 'city_id' => 'required|exists:cities,id',
+    - 'transaction_at' => 'required|date',
+    - 'description' => 'required|string',
+    - 'tenor' => 'required|numeric|min:1',
+    - 'carts' => 'required|array|min:1',
+    - 'carts.*.id' => 'nullable|exists:instalment_products,id',
+    - 'carts.*.product_id' => 'required|exists:products,id',
+    - 'carts.*.qty' => 'required|numeric|min:1',
+
+Method: GET
+URL: supplier/instalment-payment
+Controller: API\Supplier\InstalmentPaymentController
+Action: index
+Validation Rules:
+    - 'instalment_id' => 'required|exists:instalments,id',
+    - 'transaction_at' => 'required|date',
+    - 'price' => 'required|numeric',
+    - 'image_path' => 'nullable|string',
+    - 'payment_method_id' => 'required|string',
+
+Method: POST
+URL: supplier/instalment-payment
+Controller: API\Supplier\InstalmentPaymentController
+Action: store
+Validation Rules:
+    - 'instalment_id' => 'required|exists:instalments,id',
+    - 'transaction_at' => 'required|date',
+    - 'price' => 'required|numeric',
+    - 'image_path' => 'nullable|string',
+    - 'payment_method_id' => 'required|string',
+
+Method: GET
+URL: supplier/instalment/{instalment}/detail-payment
+Controller: API\Supplier\InstalmentController
+Action: detailPayment
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/instalment/{instalment}/detail
+Controller: API\Supplier\InstalmentController
+Action: detailInstalment
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/instalment-payment/{instalment_payment}
+Controller: API\Supplier\InstalmentPaymentController
+Action: createInstalmentPaymentInvoice
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: supplier/instalment/{instalment}/invoice
+Controller: API\Supplier\InstalmentController
+Action: createInstalmentInvoice
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: supplier/member
+Controller: API\Supplier\MemberController
+Action: store
+Validation Rules:
+    - 'email' => 'required|string|email:dns,filter|max:255|unique:members,email',
+    - 'phone_number' => 'required|phone:AUTO,ID|unique:members,phone_number',
+    - 'password' => 'required|string|min:6|confirmed',
+    - 'name' => 'required|string',
+
+Method: GET
+URL: supplier/{city}/view-reseller-transactions
+Controller: API\Supplier\ResellerTransactionController
+Action: viewTransaction
+Validation Rules:
+    - 'assembly_proof' => 'required|string',
+    - 'assembly_letter' => 'required|string',
+
+Method: GET
+URL: available-cities
+Controller: API\Supplier\API\CityController
+Action: availableCities
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: available-cities/{id}
+Controller: API\Supplier\API\CityController
+Action: show
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: products/{city}
+Controller: API\Supplier\API\ProductController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: products/{city}/instalment
+Controller: API\Supplier\API\ProductController
+Action: instalment
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: products/{id}/detail
+Controller: API\Supplier\API\ProductController
+Action: productDetail
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: products/{id}/cities
+Controller: API\Supplier\API\ProductController
+Action: getCity
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: reseller-transaction/check-voucher
+Controller: Admin\Api\ResellerTransactionController
+Action: checkVoucher
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: shipping/provinces
+Controller: Admin\Api\ShippingProvinceController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: shipping/cities
+Controller: Admin\Api\ShippingCityController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: shipping/subdistricts
+Controller: Admin\Api\ShippingSubdistrictController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: shipping/providers
+Controller: Admin\Api\ShippingProviderController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: shipping/provider/self_pickup
+Controller: Admin\Api\ShippingProviderController
+Action: selfPickup
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: self_pickup/products/{city}
+Controller: API\Supplier\API\ProductController
+Action: selfPickup
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: reseller-transaction/transaction/{id}
+Controller: Admin\Api\ResellerTransactionController
+Action: transaction
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: members
+Controller: Admin\Api\MemberController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: members/1
+Controller: Admin\Api\MemberController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: instalment/members
+Controller: Admin\Api\MemberController
+Action: indexInstalment
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: member/{id}/detail
+Controller: Admin\Api\MemberController
+Action: memberDetail
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: installation-fee
+Controller: Admin\Api\InstallationFeeController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: payment-methods
+Controller: Admin\Api\PaymentMethodController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: list-ext-id
+Controller: API\Supplier\API\ComplainController
+Action: listExtId
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: {id}/show-ext-id
+Controller: API\Supplier\API\ComplainController
+Action: showExtId
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: complain/{id}/product-detail
+Controller: API\Supplier\API\ComplainController
+Action: productDetail
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: list-instalment/{city}
+Controller: API\Supplier\API\InstalmentController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: list-instalment-transaction/{city}
+Controller: Admin\Api\InstalmentController
+Action: indexSupplier
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: list-instalment-transaction/{instalment}/detail
+Controller: Admin\Api\InstalmentController
+Action: detail
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: list-instalment-transaction/{instalment}/show
+Controller: Admin\Api\InstalmentController
+Action: show
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: check-user
+Controller: API\Auth\RegisterController
+Action: checkUser
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: tenors
+Controller: API\Supplier\TenorController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: tenor/{tenor}/detail
+Controller: API\Supplier\TenorController
+Action: show
+Validation Rules: No specific validation rules found
+
+Method: GET
+URL: suppliers
+Controller: API\Supplier\API\SupplierController
+Action: index
+Validation Rules: No specific validation rules found
+
+Method: POST
+URL: reseller-transactions/{id}/preshipping
+Controller: API\Supplier\ResellerTransactionController
+Action: preshipping
+Validation Rules:
+    - 'assembly_proof' => 'required|string',
+    - 'assembly_letter' => 'required|string',
+
+Method: POST
+URL: reseller-assembly/{id}/preassembly
+Controller: API\Supplier\ResellerTransactionController
+Action: preassembly
+Validation Rules:
+    - 'assembly_proof' => 'required|string',
+    - 'assembly_letter' => 'required|string',
+
+Method: POST
+URL: reseller-assembly/{id}/finish-assembly
+Controller: API\Supplier\ResellerTransactionController
+Action: finishAssembly
+Validation Rules:
+    - 'assembly_proof' => 'required|string',
+    - 'assembly_letter' => 'required|string',
