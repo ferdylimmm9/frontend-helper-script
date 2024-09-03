@@ -10,7 +10,7 @@ const enumFilePath = path.join(
   '..',
   'src',
   'assets',
-  'StaticAssets.ts',
+  'static-assets.ts',
 );
 
 // Enum name

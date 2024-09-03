@@ -8,7 +8,7 @@ const enumFilePath = path.join(
   '..',
   'src',
   'routes',
-  'PageRoutes.ts',
+  'page-routes.ts',
 );
 
 // Enum name
