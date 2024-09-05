@@ -83,10 +83,16 @@ function createEnumEntries(routes) {
         const enumKey = `${enumKeyBase}`;
         entries += `    ${enumKey} = "/${route}",\n`;
       } else {
-        entries += `    ${enumKeyBase} = "/${route}",\n`;
+        if (route === 'index') {
+          entries += `    ${enumKeyBase} = "/",\n`;
+        } else {
+          entries += `    ${enumKeyBase} = "/${route}",\n`;
+        }
       }
     });
   });
+
+  entries += `\n    NOT_FOUND = "/404",\n`;
 
   return entries;
 }
